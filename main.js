@@ -352,11 +352,20 @@ async function checkJob(accessToken, jobID) {
 
 async function generateStory(jobID, dataPath){
     console.log(dataPath);
-    console.log('cat '+ dataPath + ' | jq \'.[].title | sub("^Searched for "; "") | sub("^Visited "; "")\'');
-    const { stdout } = await execPromise('cat "'+ dataPath + '" | jq \'.[].title | sub("^Searched for "; "") | sub("^Visited "; "")\' | shuf -n 50');
-    
-    var searchHistory = stdout;
-    console.log(stdout);
+
+    let searchHistory = '';
+    try {
+        const fileContent = fs.readFileSync(dataPath, 'utf-8');
+        const activity = JSON.parse(fileContent);
+
+        const titles = activity.map(item => 
+            item.title.replace(/^Searched for /, "").replace(/^Visited /, "")
+        );
+        searchHistory = titles.sort(() => 0.5 - Math.random()).slice(0, 50).join('\n');
+    } catch (error) {
+        console.error('Error reading or parsing MyActivity.json:', error);
+        throw new Error('Could not process search history data.');
+    }
 
     const genAI = new GoogleGenerativeAI(gen_ai_api_key);
     

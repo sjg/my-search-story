@@ -2,6 +2,11 @@
 # Using a 'slim' version for a smaller image size
 FROM node:20-slim
 
+# Install jq for processing JSON in the generateStory function.
+RUN apt-get update && apt-get install -y jq && \
+    # Clean up apt cache to keep image small
+    rm -rf /var/lib/apt/lists/*
+
 # 📁 Create and change to the app directory
 WORKDIR /usr/src/app
 
