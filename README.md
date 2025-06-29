@@ -169,10 +169,8 @@ You can deploy this project as a serverless container using Google Cloud Run and
 Your API keys and client secrets should not be in your repository. Store them securely in Google Cloud's Secret Manager.
 
 1.  In the GCP Console, go to **Security > Secret Manager**.
-2.  Create secrets with the following names, using the values from your `.env` file:
-    - `GOOGLE_CLIENT_ID`
-    - `GOOGLE_CLIENT_SECRET`
-    - `GOOGLE_GEN_API_KEY`
+2.  Create a single secret named `My-Search-Story`.
+3.  For the secret value, copy and paste the entire content of your local `.env` file. The `cloudbuild.yaml` is configured to parse this secret and provide the values to your Cloud Run service.
 
 ### 3. Add `cloudbuild.yaml`
 

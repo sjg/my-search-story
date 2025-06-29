@@ -9,28 +9,33 @@ steps:
 
   # 3. Deploy container image to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
+    entrypoint: /bin/bash
     args:
-      - 'run'
-      - 'deploy'
-      - 'my-search-story' # This will be the name of your Cloud Run service
-      - '--image=gcr.io/$PROJECT_ID/my-search-story:$COMMIT_SHA'
-      - '--region=us-central1' # IMPORTANT: Choose the region that is best for you
-      - '--platform=managed'
-      - '--allow-unauthenticated'
-      - '--set-env-vars=GOOGLE_CLIENT_ID=$$GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET=$$GOOGLE_CLIENT_SECRET,GOOGLE_GEN_API_KEY=$$GOOGLE_GEN_API_KEY,GCP_PROJECT_ID=$PROJECT_ID,APP_PORT=8080,GOOGLE_REDIRECT_URL=$$GOOGLE_REDIRECT_URL'
+      - '-c'
+      - |
+        # The content of the secret is in the DOTENV_CONTENT env var.
+        # Filter out comments, empty lines, and specific keys we want to override.
+        BASE_VARS=$(echo "$$DOTENV_CONTENT" | grep -vE '^#|^$|^APP_PORT=|^GCP_PROJECT_ID=' | tr '\n' ',')
+
+        # Construct the final string with our overrides.
+        # Append the required Cloud Run port and the project ID from the build environment,
+        # then append the variables from the secret.
+        FINAL_VARS="APP_PORT=8080,GCP_PROJECT_ID=$PROJECT_ID,${BASE_VARS}"
+        FINAL_VARS=$(echo $FINAL_VARS | sed 's/,$//')
+
+        # Deploy using the constructed string
+        gcloud run deploy my-search-story \
+          --image=gcr.io/$PROJECT_ID/my-search-story:$COMMIT_SHA \
+          --region=us-central1 \
+          --platform=managed \
+          --allow-unauthenticated \
+          --set-env-vars="$FINAL_VARS"
 
 # This section makes secrets from Secret Manager available to the build steps
 availableSecrets:
   secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/GOOGLE_CLIENT_ID/versions/latest
-      env: 'GOOGLE_CLIENT_ID'
-    - versionName: projects/$PROJECT_ID/secrets/GOOGLE_CLIENT_SECRET/versions/latest
-      env: 'GOOGLE_CLIENT_SECRET'
-    - versionName: projects/$PROJECT_ID/secrets/GOOGLE_GEN_API_KEY/versions/latest
-      env: 'GOOGLE_GEN_API_KEY'
-    - versionName: projects/$PROJECT_ID/secrets/GOOGLE_REDIRECT_URL/versions/latest
-      env: 'GOOGLE_REDIRECT_URL'
+    - versionName: projects/$PROJECT_ID/secrets/My-Search-Story/versions/latest
+      env: 'DOTENV_CONTENT'
 
 images:
   - 'gcr.io/$PROJECT_ID/my-search-story:$COMMIT_SHA'
