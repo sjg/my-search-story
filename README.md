@@ -2,7 +2,9 @@
 
 Turn your Google search history into unique, AI-generated stories, complete with audio narration and a custom background image! ✨
 
-This project uses the Google Data Portability API to fetch your search activity and then leverages Google's powerful Generative AI (Gemini and Imagen) to create a unique piece of art based on your digital footprint.
+This project uses the Google Data Portability API to fetch your search activity and then leverages Google's powerful Generative AI (Gemini and Imagen) to create a unique piece of art based on your digital footprint.  
+
+#DataPortabilityAPI #BuildWithGemini #AISprint
 
 **Note:** The Data Portability API is currently only available for end users in the European Economic Area (EEA) 
 
