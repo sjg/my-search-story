@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>My Search Story - Jobs</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back_ios_new" />
+        <link href="/css/styles.css" rel="stylesheet" />
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    </head>
+    <body style="background-color: black; background: url('/img/mainbackground.png') no-repeat center center black; background-size: cover; min-height: 100vh;">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/">My Search Story</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/archive">Archive</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/jobs">Jobs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://myaccount.google.com/connections/link?project_number=57122432282" target="_blank">Renew Access</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <section>
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-12">
+                        <h1 class="mt-5">
+                            <a href="/" style="text-decoration: none; color: white">
+                            <span class="material-symbols-outlined">arrow_back_ios_new</span>
+                            </a>
+                            Jobs
+                        </h1>
+                        <div id="jobs-container" style="text-align: justify; padding: 20px; background-color: rgba(0, 0, 0, 0.6);">
+                            <% if (jobs.length > 0) { %>
+                                <% jobs.forEach(job => { %>
+                                    <div class="job-item mb-4">
+                                        <h4 style="display: inline-block; margin-right: 20px;">Job ID: <%- job.jobID %></h4>
+                                        <button class="btn btn-sm btn-primary create-story-btn" data-jobid="<%- job.jobID %>">Create Story</button>
+                                        <span class="job-status" id="status-<%- job.jobID %>" style="margin-left: 10px; display: none;">
+                                            <div class="spinner-border spinner-border-sm text-light" role="status"></div> Creating...
+                                        </span>
+                                        <ul class="mt-2" style="list-style: none; padding-left: 0;">
+                                            <% job.stories.forEach(story => { %>
+                                                <li>
+                                                    <a href="/archive/<%- job.jobID %>/<%- story.id %>" style="text-decoration: none; color: white">
+                                                        <%- new Date(story.created).toLocaleString() %> - <%- story.title %>
+                                                    </a>
+                                                </li>
+                                            <% }) %>
+                                        </ul>
+                                    </div>
+                                    <hr style="border-color: rgba(255,255,255,0.3);">
+                                <% }) %>
+                            <% } else { %>
+                                <p>No jobs found. Go to the <a href="/">homepage</a> to fetch your search history.</p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.querySelectorAll('.create-story-btn').forEach(button => {
+                button.addEventListener('click', async (event) => {
+                    const jobId = event.target.dataset.jobid;
+                    const statusSpan = document.getElementById(`status-${jobId}`);
+                    event.target.disabled = true;
+                    statusSpan.style.display = 'inline-block';
+                    await fetch(`/generateStory/${jobId}`);
+                    window.location.reload();
+                });
+            });
+        </script>
+    </body>
+</html>

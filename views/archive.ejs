@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>My Search Story</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_back_ios_new" />
+        <link href="/css/styles.css" rel="stylesheet" />
+    </head>
+    <body style="background-color: black; background: url('/img/mainbackground.png') no-repeat center center black; background-size: cover; height: 100vh;">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/">My Search Story</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/archive">Archive</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/jobs">Jobs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/auth">Auth</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://myaccount.google.com/connections/link?project_number=57122432282" target="_blank">Renew Access</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <section>
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-12">
+                        
+                        <h1 class="mt-5">
+                            <a href="/" style="text-decoration: none; color: white">
+                            <span class="material-symbols-outlined">
+                                arrow_back_ios_new
+                            </span>
+                            Archive
+                        </h1>
+                        <p style="text-align: justify; padding: 20px; background-color: rgba(0, 0, 0, 0.6); /* 30% white opacity */">
+                            <% archive.forEach(storyObj => { %>
+                                <%
+                                    const date = new Date(storyObj.created);
+                                    const day = String(date.getDate()).padStart(2, '0');
+                                    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+                                    const year = date.getFullYear();
+                                    let hours = date.getHours();
+                                    const ampm = hours >= 12 ? 'pm' : 'am';
+                                    hours = hours % 12;
+                                    hours = hours === 0 ? 12 : hours; // the hour '0' (midnight) should be '12'
+                                    const minutes = String(date.getMinutes()).padStart(2, '0');
+                                    const formattedDate = `${day}/${month}/${year} @ ${hours}:${minutes} ${ampm}`;
+                                %>
+                                <a href="/archive/<%- storyObj.jobID %>/<%- storyObj.id %>" style="text-decoration: none; color: white" > <%- formattedDate %> - <%- storyObj.title %></a><br/>
+                            <% }) %>
+                        </p>
+                    </div>
+                
+                </div>
+            </div>
+        </section>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.core.min.js" integrity="sha512-d00Brs/+XQUUaO0Y9Uo8Vw63o7kS6ZcLM2P++17kALrI8oihAfL4pl1jQObeRBgv06j7xG0GHOhudAW0BdrycA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- Core theme JS-->
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>

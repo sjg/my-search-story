@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>My Search Story</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/">My Search Story</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/archive/">Archive</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="/jobs">Jobs</a></li>
+                        <% if (!authd) { %>
+                            <li class="nav-item"><a class="nav-link" href="/auth">Auth</a></li>
+                        <% } else { %>
+                            <li class="nav-item"><a class="nav-link" href="https://myaccount.google.com/connections/link?project_number=57122432282" target="_blank">Renew Access</a></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <section>
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-6">
+                        <h1 class="mt-5">Welcome to My Search Story</h1>
+                        <%- current_status %>
+                        
+                        <% if (authd) { 
+                            var today = new Date().toISOString().slice(0, 10);
+                            var now = new Date().toISOString().slice(0, 16); // YYYY-MM-DDTHH:mm for datetime-local
+                        %>
+                            <br/>
+                            <label for="startDate">Start Date:</label>
+                            <input type="datetime-local" id="startDate" value="" max="<%= now %>">
+                            <label for="endDate">End Date:</label>
+                            <input type="datetime-local" id="endDate" value="<%= now %>" max="<%= now %>">
+                            
+                            <br/><br/>
+                            <button type="button" class="btn btn-primary search">Fetch Search History</button>
+                            <button type="button" class="btn btn-primary createStory">Create Story</button>
+                        <% } %>
+
+                        <br/><br/>
+                        <div class="checking" style="display: none; align-items: center;">
+                            <div id="loadingSpinner" class="spinner-border text-light" role="status" style="width: 1.5rem; height: 1.5rem;"></div>
+                            <span id="successTick" class="material-symbols-outlined" style="display: none; color: lightgreen; font-size: 2rem; vertical-align: middle;">
+                                check_circle
+                            </span>
+                            <span id="statusSpinner" class="status" style="margin-left: 10px;">Submitting Job .... </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.core.min.js" integrity="sha512-d00Brs/+XQUUaO0Y9Uo8Vw63o7kS6ZcLM2P++17kALrI8oihAfL4pl1jQObeRBgv06j7xG0GHOhudAW0BdrycA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js" integrity="sha512-xi/RZRIF/S0hJ+yJJYuZ5yk6/8pCiRlEXZzoguSMl+vk2i3m6UjUO/WcZ11blRL/O+rnj94JRGwt/CHbc9+6EA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Core theme JS-->
+        <script src="/js/scripts.js"></script>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "My Search Story",
+  "version": "1.0.0",
+  "description": "Demo of Google Data Portability API and Gemini API tools",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^5.0.0",
+    "@google/generative-ai": "^0.1.3",
+    "cookie-parser": "^1.4.6",
+    "dayjs": "^1.11.10",
+    "dompurify": "^3.2.6",
+    "dotenv": "^16.6.0",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "googleapis": "^129.0.0",
+    "jsdom": "^26.1.0",
+    "jszip": "^3.10.1",
+    "marked": "^16.0.0",
+    "node-fetch": "^2.7.0",
+    "uuid": "^9.0.1"
+  }
+}
