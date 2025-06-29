@@ -107,7 +107,7 @@ const model = genAI.getGenerativeModel({
 const result = await model.generateContent("Create a story based on my recent searches: " + searchHistory);
 ```
 
-We feed the model a random sample of 50 search terms and let it work its creative magic. It's important to note here that each search term is on a new line which I found in testing to be the best for generating a good story from the model. The ease of switching models in Vertex AI means we could easily swap to a more powerful model like Gemini 2.5 Flash with a single line change if we wanted to experiment with different narrative styles.  Most models in the [GenAI family have a retirement date](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#latest_stable_models) so being able to update these later is important. 
+We feed the model a random sample of 50 search terms and let it work its creative magic. It's important to note here that each search term is on a new line which I found in testing to be the best for generating a good story from the model. The ease of switching models in Vertex AI means we could easily swap to a more powerful model like Gemini 2.5 Pro (gemini-2.5-pro) with a single line change if we wanted to experiment with different narrative styles.  Most models in the [GenAI family have a retirement date](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#latest_stable_models) so being able to update these later is important. 
 
 Once finished we get a new story created from our Search History
 
