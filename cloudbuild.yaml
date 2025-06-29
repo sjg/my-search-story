@@ -18,7 +18,7 @@ steps:
       - '--region=us-central1' # IMPORTANT: Choose the region that is best for you
       - '--platform=managed'
       - '--allow-unauthenticated'
-      - '--set-env-vars=GOOGLE_CLIENT_ID=$$GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET=$$GOOGLE_CLIENT_SECRET,GOOGLE_GEN_API_KEY=$$GOOGLE_GEN_API_KEY,GCP_PROJECT_ID=$PROJECT_ID,APP_PORT=8080'
+      - '--set-env-vars=GOOGLE_CLIENT_ID=$$GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET=$$GOOGLE_CLIENT_SECRET,GOOGLE_GEN_API_KEY=$$GOOGLE_GEN_API_KEY,GCP_PROJECT_ID=$PROJECT_ID,APP_PORT=8080,GOOGLE_REDIRECT_URL=$$GOOGLE_REDIRECT_URL'
 
 # This section makes secrets from Secret Manager available to the build steps
 availableSecrets:
@@ -29,6 +29,8 @@ availableSecrets:
       env: 'GOOGLE_CLIENT_SECRET'
     - versionName: projects/$PROJECT_ID/secrets/GOOGLE_GEN_API_KEY/versions/latest
       env: 'GOOGLE_GEN_API_KEY'
+    - versionName: projects/$PROJECT_ID/secrets/GOOGLE_REDIRECT_URL/versions/latest
+      env: 'GOOGLE_REDIRECT_URL'
 
 images:
   - 'gcr.io/$PROJECT_ID/my-search-story:$COMMIT_SHA'

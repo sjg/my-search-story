@@ -139,7 +139,6 @@ You can deploy this project as a serverless container using Google Cloud Run and
 
 ### 1. Prerequisites
 
-- Push your project to a GitHub repository.
 - Ensure your GCP project is set up as described in the "Setup" section.
 - Make sure the **Cloud Build API** and **Secret Manager API** are enabled in your GCP project.
 

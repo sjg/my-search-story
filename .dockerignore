@@ -1,0 +1,10 @@
+# Ignore node_modules, as they will be installed inside the container
+node_modules
+
+# Ignore local data, this should be mounted as a volume
+data/
+
+# Ignore environment files and git history
+.env
+.git
+.gitignore
