@@ -357,7 +357,7 @@ async function generateStory(jobID, dataPath){
     const genAI = new GoogleGenerativeAI(gen_ai_api_key);
     
     const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash",
+        model: "gemini-2.5-flash",
         systemInstruction: `
         
         Your Role: You are a creative storyteller AI. Your primary function is to generate a short story based on the user's provided search terms, following a strict output format.
@@ -425,10 +425,10 @@ async function generateStory(jobID, dataPath){
 }
 
 async function generateStoryTitle(jobID, storyText){
-  // Use genAI.getGenerativeModel function and the moodel: "gemini-2.0-flash", create a title for the story in no more than 6 words
+  // Use genAI.getGenerativeModel function and the moodel, create a title for the story in no more than 6 words
   // prompt: Generate a title of no more than 6 words for this story: ...
   const genAI = new GoogleGenerativeAI(gen_ai_api_key);
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
   const prompt = `Generate one title of no more than 6 words for the following story: ${storyText}.  The title should jsut be 6 words and not a list of possible title, generate only one title`;
   

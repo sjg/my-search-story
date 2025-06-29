@@ -4,7 +4,25 @@ Turn your Google search history into unique, AI-generated stories, complete with
 
 This project uses the Google Data Portability API to fetch your search activity and then leverages Google's powerful Generative AI (Gemini and Imagen) to create a unique piece of art based on your digital footprint.
 
-![Screenshot of a generated story page](./docs/screenshot.png)
+---
+
+## 🖼️ Screenshots
+
+<p align="center">
+  <img src="./docs/screenshots/app_first_page.png" alt="Main page where users can select a date range to fetch their Google search history." width="48%">
+  &nbsp; &nbsp;
+  <img src="./docs/screenshots/example_story.png" alt="A generated story page, showing the AI-written text, a custom background image, and audio controls." width="48%">
+</p>
+<p align="center">
+  <em><b>Left:</b> The main page for fetching data. <b>Right:</b> A generated story with AI art and audio.</em>
+</p>
+<br>
+<p align="center">
+  <img src="./docs/screenshots/jobs_list.png" alt="The archive page, listing all previously generated stories." width="80%">
+</p>
+<p align="center">
+  <em>The archive page, where you can browse all your past creations.</em>
+</p>
 
 ---
 
