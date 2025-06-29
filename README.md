@@ -4,6 +4,8 @@ Turn your Google search history into unique, AI-generated stories, complete with
 
 This project uses the Google Data Portability API to fetch your search activity and then leverages Google's powerful Generative AI (Gemini and Imagen) to create a unique piece of art based on your digital footprint.
 
+**Note:** The Data Portability API is currently only available for end users in the European Economic Area (EEA) 
+
 ---
 
 ## 🖼️ Screenshots
@@ -28,7 +30,7 @@ This project uses the Google Data Portability API to fetch your search activity 
 
 ## 🚀 How it Works
 
-1.  **🔐 Authenticate:** Securely log in with your Google account. We only ask for permission to access your search and Chrome history via the Data Portability API.
+1.  **🔐 Authenticate:** Securely log in with your Google account. The app only asks for permission to access your search history via the Data Portability API.
 2.  **🚚 Fetch Your Data:** Request an archive of your search history over a specific date range. The app will monitor the job status until your data is ready.
 3.  **🤖 Generate Magic:** We pick a random selection of your search terms and feed them to Google's Gemini AI to write a completely unique short story.
 4.  **🎧 Listen & See:** The generated story is converted to speech using Google's Text-to-Speech API, and a custom background image is generated with Imagen to match the story's theme.
@@ -92,7 +94,7 @@ Follow these steps to get the project running on your local machine.
     - Click "CREATE" and copy the **Client ID** and **Client Secret**.
     - Go back to the "Credentials" page, click "CREATE CREDENTIALS" and choose "API key". Copy the **API Key**.
 
-4.  ** Set up DPAPI **
+4.  **Set up DPAPI**
     - Follow instructions to setup the Data Portability API - see https://developers.google.com/data-portability/user-guide/setup
 
 5.  **Create a `.env` file:**
