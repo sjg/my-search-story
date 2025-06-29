@@ -21,7 +21,7 @@ Our application uses this API to fetch a user's search history over a specified 
 
 ### Initiating the Data Archive
 
-First, we need to make a `POST` request to the `portabilityArchive:initiate` endpoint. This request includes the user's OAuth 2.0 access token and specifies which data resource we're interested in (`myactivity.search`).  After we've authenicated with Google, the user has agreed to share thier data and has validated the length of time the app has access to the data, we can then start to request the users data.
+First, we need to make a `POST` request to the `portabilityArchive:initiate` endpoint. This request includes the user's OAuth 2.0 access token and specifies which data resource we're interested in (`myactivity.search`).  After we've authenticated with Google, the user has agreed to share their data and has validated the length of time the app has access to the data, we can then start to request the users data.
 
 Here’s the function that kicks this off in `main.js`:
 
@@ -79,7 +79,7 @@ Once the job is complete, the API provides signed URLs from a temporary Google S
 ---
 ## 2. Weaving a Narrative with Gemini 2.5 Flash ✍️
 
-This is where the magic happens. After extracting the search queries from the downloaded JSON, we use Google's Gemini 2.5 Flash model to generate a story using a custom prompt.  I chose Gemini 2.0 Flash for its speed, large context window, and low price point which makes it perfect for creating long stories quickly when the user requests them.
+This is where the magic happens. After extracting the search queries from the downloaded JSON, we use Google's Gemini 2.5 Flash model to generate a story using a custom prompt.  I chose this model for its speed, large context window, and low price point which makes it perfect for creating long stories quickly when the user requests them.
 
 The core of this process is in the `generateStory` function in `main.js` file.
 
@@ -89,7 +89,7 @@ The quality of an AI-generated story depends heavily on the prompt. We use a det
 
 ```javascript
 const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
+    model: "gemini-2.5-flash",
     systemInstruction: `
     
     Your Role: You are a creative storyteller AI. Your primary function is to generate a short story based on the user's provided search terms, following a strict output format.
@@ -117,11 +117,11 @@ Once finished we get a new story created from our Search History
 
 ## 3. Visualising the Story 🗣️
 
-Now that we have a story and a title we need to create a custom background image for the story page.  The background image is created my the Imagen model on VertexAI and return the first image.  For the app I used the prompt 
+Now that we have a story and a title we need to create a custom background image for the story page.  The background image is created by the Imagen model on VertexAI and returns the first image.  For the app I used the prompt 
 
-```A beautiful and evocative background image for a story. The story starts like this: ${storyText}. The image should be high-quality, photorealistic, with cinematic and dramatic lighting and fit with a dark backgorund which is currently black around the side.```
+```A beautiful and evocative background image for a story. The story starts like this: ${storyText}. The image should be high-quality, photorealistic, with cinematic and dramatic lighting and fit with a dark background which is currently black around the side.```
 
-Each request to Imagen can create up to 4 images based on the prompt given, and so we just pick the first one that comes back, convert the Base64Encoded image into an image buffer and then save it to the local filesystem. 
+Each request to Imagen can create up to 4 images based on the prompt given, and so we just pick the first one that comes back, convert the Base64 Encoded image into an image buffer and then save it to the local filesystem. 
 
 ```javascript
 async function generateBackgroundImage(jobID, storyText, imgPath){
@@ -143,7 +143,7 @@ async function generateBackgroundImage(jobID, storyText, imgPath){
   }
 }
 ```
-We now have a nice background image to go with our story which changes everytime based on the story thats passed to the model
+We now have a nice background image to go with our story which changes every time based on the story that's passed to the model
 
 ![Example Story](/docs/screenshots/example_story.png "Example Story")
 
@@ -184,3 +184,5 @@ We simply instantiate the client, build a request with our text and desired voic
 The "My Search Story" project is a fun demonstration of how different Google Cloud and AI services can be orchestrated to create a deeply personal and creative user experience. By combining the **Data Portability API**, the generative power of **Gemini**, and the clarity of **Cloud Text-to-Speech**, we can turn a simple list of search queries into a unique piece of digital art.
 
 If you're brave enough then clone the repository, set it up with your own credentials, and see what kind of stories your search history has to tell!
+
+
