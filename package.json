@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@google-cloud/text-to-speech": "^5.0.0",
+    "@google/genai": "^1.7.0",
     "@google/generative-ai": "^0.1.3",
     "cookie-parser": "^1.4.6",
     "dayjs": "^1.11.10",

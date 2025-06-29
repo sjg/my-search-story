@@ -16,6 +16,8 @@ const util = require('util');
 const execPromise = util.promisify(exec);
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenAI } = require("@google/genai");
+
 const {TextToSpeechClient} = require('@google-cloud/text-to-speech');
 
 require('dotenv').config();
@@ -31,6 +33,8 @@ const oauth2Client = new google.auth.OAuth2(
 
 const gcp_project_id = process.env.GCP_PROJECT_ID;
 const gen_ai_api_key = process.env.GOOGLE_GEN_API_KEY;
+
+const ai = new GoogleGenAI({apiKey: process.env.GOOGLE_GEN_API_KEY});
 
 app.use(cookieParser());
 app.set('view engine', 'ejs');
